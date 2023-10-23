@@ -15,20 +15,27 @@ class TableController {
     lateinit var modeloService: TableService
 
     @GetMapping
-    fun list ():List <TableModel>{
+    fun list(): List<TableModel> {
         return modeloService.list()
     }
+
     @PostMapping
-    fun save (@RequestBody modelo:TableModel):ResponseEntity<TableModel>{
+    fun save(@RequestBody modelo: TableModel): ResponseEntity<TableModel> {
         return ResponseEntity(modeloService.save(modelo), HttpStatus.OK)
     }
 
     @PutMapping
-    fun update (@RequestBody modelo:TableModel):ResponseEntity<TableModel>{
+    fun update(@RequestBody modelo: TableModel): ResponseEntity<TableModel> {
         return ResponseEntity(modeloService.update(modelo), HttpStatus.OK)
     }
+
     @GetMapping("/{id}")
-    fun listById (@PathVariable("id") id: Long): ResponseEntity<*>{
-        return ResponseEntity(modeloService.listById (id), HttpStatus.OK)
+    fun listById(@PathVariable("id") id: Long): ResponseEntity<*> {
+        return ResponseEntity(modeloService.listById(id), HttpStatus.OK)
+    }
+
+    @DeleteMapping("/delete/{id}")
+    fun delete(@PathVariable("id") id: Long): Boolean? {
+        return modeloService.delete(id)
     }
 }

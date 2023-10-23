@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository
 interface TableRepository  : JpaRepository<TableModel, Long?> {
 
     fun findById (id: Long?): TableModel?
+
 }

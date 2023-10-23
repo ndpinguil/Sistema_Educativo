@@ -36,9 +36,19 @@ class TableService {
             throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)
         }
     }
-
     fun listById (id:Long?):TableModel?{
         return modeloRepository.findById(id)
+    }
+    fun delete (id: Long?):Boolean?{
+        try{
+            val response = modeloRepository.findById(id)
+                    ?: throw Exception("ID no existe")
+            modeloRepository.deleteById(id!!)
+            return true
+        }
+        catch (ex:Exception){
+            throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)
+        }
     }
 }
 
