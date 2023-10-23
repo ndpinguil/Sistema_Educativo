@@ -42,7 +42,7 @@ class TableService {
     fun delete (id: Long?):Boolean?{
         try{
             val response = modeloRepository.findById(id)
-                    ?: throw Exception("ID no disponible")
+                    ?: throw Exception("ID no disponible por hoy")
             modeloRepository.deleteById(id!!)
             return true
         }
