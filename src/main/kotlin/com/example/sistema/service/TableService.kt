@@ -37,7 +37,9 @@ class TableService {
         }
     }
 
-
+    fun listById (id:Long?):TableModel?{
+        return modeloRepository.findById(id)
+    }
 }
 
 
