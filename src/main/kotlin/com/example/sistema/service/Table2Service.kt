@@ -52,4 +52,17 @@ class Table2Service {
             throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)
         }
     }
+    fun updateName(modelo:Table2Model): Table2Model{
+        try{
+            val response = modeloRepository.findById(modelo.id)
+                    ?: throw Exception("ID no existe")
+            response.apply {
+                docente=modelo.docente //un atributo del modelo
+            }
+            return modeloRepository.save(response)
+        }
+        catch (ex:Exception){
+            throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)
+        }
+    }
 }

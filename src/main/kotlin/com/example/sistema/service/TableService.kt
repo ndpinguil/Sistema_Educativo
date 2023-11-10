@@ -18,10 +18,14 @@ class TableService {
 
     fun save(modelo: TableModel): TableModel{
         try{
+
+            modelo.materia?.takeIf { it.trim().isNotEmpty()}
+                    ?:throw ResponseStatusException(HttpStatus.BAD_REQUEST, "La materia no debe ser nula")
+
             return modeloRepository.save(modelo)
         }
         catch (ex:Exception){
-            throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST,ex.message)
         }
     }
 
@@ -45,6 +49,19 @@ class TableService {
                     ?: throw Exception("ID no disponible por hoy")
             modeloRepository.deleteById(id!!)
             return true
+        }
+        catch (ex:Exception){
+            throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)
+        }
+    }
+    fun updateName(modelo:TableModel): TableModel{
+        try{
+            val response = modeloRepository.findById(modelo.id)
+                    ?: throw Exception("ID no existe")
+            response.apply {
+                materia=modelo.materia //un atributo del modelo
+            }
+            return modeloRepository.save(response)
         }
         catch (ex:Exception){
             throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)

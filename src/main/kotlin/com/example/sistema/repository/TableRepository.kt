@@ -10,4 +10,5 @@ interface TableRepository  : JpaRepository<TableModel, Long?> {
 
     fun findById (id: Long?): TableModel?
 
+
 }

@@ -37,4 +37,8 @@ class TableController {
     fun delete(@PathVariable("id") id: Long): Boolean? {
         return modeloService.delete(id)
     }
+    @PatchMapping
+    fun updateName (@RequestBody modelo:TableModel):ResponseEntity<TableModel>{
+        return ResponseEntity(modeloService.updateName(modelo), HttpStatus.OK)
+    }
 }
